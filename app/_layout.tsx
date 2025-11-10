@@ -1,24 +1,16 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { useFonts } from "expo-font";
+import { Slot } from "expo-router";
+import "./global.css";
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+const RootLayout = () => {
+  useFonts({
+    "montserrat-black": require("../assets/fonts/MontserratAlternates-Black.ttf"),
+    "montserrat-light": require("../assets/fonts/MontserratAlternates-Light.ttf"),
+    "montserrat-regular": require("../assets/fonts/MontserratAlternates-Medium.ttf"),
+    "chelsea-market": require("../assets/fonts/ChelseaMarket-Regular.ttf"),
+  });
 
-export const unstable_settings = {
-  anchor: '(tabs)',
+  return <Slot />;
 };
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
-  );
-}
+export default RootLayout;
